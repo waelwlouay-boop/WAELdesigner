@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ar"
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>روابط التواصل — Wael Designer</title>
+  <style>
+    :root{--bg:#00ff80;--card:#000000cc;--accent:#00ff6699;--muted:##00ff6699}
+    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Noto Naskh Arabic','Helvetica Neue',Arial}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#000000cc 0%,#00ff6699 100%);color:#00ff80}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .card{width:100%;max-width:920px;background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);border-radius:14px;padding:28px;box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.04)}
+    .header{display:flex;gap:16px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),##00ff80);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px}
+    h1{margin:0;font-size:20px}
+    p.sub{margin:4px 0 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}
+    .item{background:var(--card);padding:14px;border-radius:12px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,0.03)}
+    .iconwrap{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.02)}
+    .info{flex:1}
+    .title{font-weight:600}
+    .meta{font-size:13px;color:var(--muted);word-break:break-all}
+    .actions{display:flex;gap:8px;align-items:center}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:inherit;cursor:pointer}
+    .btn.link{display:inline-flex;gap:8px;align-items:center;text-decoration:none}
+    .copied{font-size:12px;color:#10b981;margin-left:8px;opacity:0;transform:translateY(-4px);transition:all .25s}
+    .copied.show{opacity:1;transform:translateY(0)}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    @media (max-width:420px){.header{flex-direction:column;align-items:flex-start}.logo{width:56px;height:56px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="Social links card">
+      <div class="header">
+        <div>
+          <head>كل ما يخص بتصميم الصور Wael Designer</h1>
+          <p class="sub">اضغط على أيقونة النسخ لنسخ الرابط/اليوزر إلى الحافظة</p>
+        </div>
+      </div>
+
+      <div class="grid" id="links">
+
+        <!-- Discord -->
+        <div class="item">
+          <div class="iconwrap" aria-hidden>
+            <!-- Discord SVG -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.369A19.791 19.791 0 0016.97 3.2a13.76 13.76 0 00-.687 1.432 18.992 18.992 0 00-5.952 0A13.792 13.792 0 009.6 3.2 19.79 19.79 0 004.283 4.37C2.06 9.08 1.74 13.66 2.39 18.18a20.17 20.17 0 006.06 3.12c.48-.66.91-1.32 1.3-2.01a13.18 13.18 0 01-3.9-1.2c.33-.2.66-.41.98-.64 6.56 3.1 13.36 0 13.36 0 .34.23.68.44 1.02.64a12.97 12.97 0 01-3.9 1.2c.39.69.8 1.35 1.3 2.01a20.169 20.169 0 006.06-3.12c.64-4.52.32-9.1-2.89-13.81z" fill="#5865F2"/></svg>
+          </div>
+          <div class="info">
+            <div class="title">Discord</div>
+          <div class="meta" id="discord-text">9pr.</div>
+          </div>
+          <div class="actions">
+            <button class="btn" onclick="copyText('discord-text', this)" aria-label="نسخ يوزر ديسكورد">نسخ</button>
+          </div>
+        </div>
+
+        <!-- YouTube -->
+        <div class="item">
+          <div class="iconwrap">
+            <!-- YouTube SVG -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.01 3.01 0 00-2.12-2.121C19.84 3.2 12 3.2 12 3.2s-7.84 0-9.378.865A3.01 3.01 0 00.504 6.186C0 8.01 0 12 0 12s0 3.99.504 5.814a3.01 3.01 0 002.118 2.121C4.16 20.8 12 20.8 12 20.8s7.84 0 9.378-.865a3.01 3.01 0 002.12-2.121C24 15.99 24 12 24 12s0-3.99-.502-5.814z" fill="#FF0000"/></svg>
+          </div>
+          <div class="info">
+            <div class="title">YouTube</div>
+            <div class="meta" id="youtube-text">https://www.youtube.com/@ERROR_x7x</div>
+          </div>
+          <div class="actions">
+            <a class="btn link" href="https://www.youtube.com/@ERROR_x7x" target="_blank" rel="noopener">فتح</a>
+            <button class="btn" onclick="copyText('youtube-text', this)">نسخ</button>
+          </div>
+        </div>
+
+        <!-- TikTok -->
+        <div class="item">
+          <div class="iconwrap">
+            <!-- TikTok SVG simplified -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v10.5A4.5 4.5 0 1013.5 18V8h3V5h-3V3H9z" fill="#010101"/></svg>
+          </div>
+          <div class="info">
+            <div class="title">TikTok</div>
+            <div class="meta" id="tiktok-text">wael_designer</div>
+          </div>
+          <div class="actions">
+            <button class="btn" onclick="copyText('tiktok-text', this)">نسخ</button>
+           <a class="btn link" href="https://vm.tiktok.com/ZSHwAG78yrq5p-Ubu27/" target="_blank" rel="noopener">فتح</a>
+          </div>
+        </div>
+        <!-- Instagram -->
+        <div class="item">
+          <div class="iconwrap">
+            <!-- Instagram SVG -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-opacity="0.85" stroke-width="1.2" fill="none"/><circle cx="12" cy="12" r="3.2" stroke="#fff" stroke-opacity="0.85" stroke-width="1.1" fill="none"/><circle cx="17.5" cy="6.5" r="0.7" fill="#fff"/></svg>
+          </div>
+          <div class="info">
+            <div class="title">Instagram</div>
+            <div class="meta" id="instagram-text">wael designr</div>
+          </div>
+          <div class="actions">
+            <button class="btn" onclick="copyText('instagram-text', this)">نسخ</button>
+                        <a class="btn link" href="https://www.instagram.com/wael_designer_27?igsh=MXUyYjRibW1wcWcyOQ==" target="_blank" rel="noopener">فتح</a>
+          </div>
+        </div>
+      </div>
+
+      <footeتمrرل</footer>
+    </div>
+  </div>
+
+  <script>
+    function copyText(elementId, btn){
+      const el = document.getElementById(elementId);
+      const text = el.textContent.trim();
+      if(!navigator.clipboard){
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand('copy'); showCopied(btn); }catch(e){ alert('نسخ غير متاح'); }
+        ta.remove();
+        return;
+      }
+      navigator.clipboard.writeText(text).then(()=>{
+        showCopied(btn);
+      }).catch(()=>{ alert('فشل النسخ — تأكد من السماح للصق في المتصفح'); });
+    }
+    function showCopied(btn){
+      const original = btn.textContent;
+      btn.textContent = 'تم النسخ'
+      btn.disabled = true;
+      setTimeout(()=>{ btn.textContent = original; btn.disabled = false; },1500);
+    }
+  </script>
+</body>
+</html>
