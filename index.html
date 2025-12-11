@@ -132,6 +132,252 @@
       btn.disabled = true;
       setTimeout(()=>{ btn.textContent = original; btn.disabled = false; },1500);
     }
+    <!doctype html>
+
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ويدجت عدد المتصلين — Wael</title>
+  <style>
+    :root{--bg:#0b1220;--card:#0f1724;--accent:#06b6d4;--muted:#94a3b8}
+    *{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
+    body{margin:0;background:linear-gradient(180deg,#05111a 0%, #071726 100%);color:#e6eef6;min-height:100vh;}.widget{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px 16px;border-radius:12px;display:flex;gap:10px;align-items:center;box-shadow:0 6px 20px rgba(2,6,23,0.4);min-width:150px;position:fixed;top:12px;right:12px;z-index:9999;transform:none;opacity:1;}
+
+.eye{
+  width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px;position:relative;overflow:visible
+}
+/* نبضة عند تغيّر العدد */
+.eye.pulse::after{
+  content:"";position:absolute;inset:0;border-radius:12px;box-shadow:0 0 0 0 rgba(6,182,212,0.14);animation:pulse 900ms ease-out;
+}
+@keyframes pulse{to{box-shadow:0 0 0 18px rgba(6,182,212,0)}}
+
+.count{display:flex;flex-direction:column}
+.count .label{font-size:12px;color:var(--muted);margin-bottom:4px;text-align:left}
+.count .num{font-size:20px;font-weight:700;color:var(--accent)}
+
+/* أيقونة بسيطة بالـ SVG */
+svg{display:block}
+
+/* تأثير دخول عند تحميل الصفحة */
+.widget{transform:translateY(6px);opacity:0;animation:enter 420ms cubic-bezier(.2,.9,.3,1) forwards}
+@keyframes enter{to{transform:none;opacity:1}}
+
+/* نسخة للجوال */
+@media (max-width:420px){.widget{min-width:180px;padding:12px;border-radius:10px}.eye{width:48px;height:48px}}
+
+  </style>
+</head>
+<body>  <div class="widget" id="onlineWidget">
+    <div class="eye" id="eye">
+      <!-- SVG عين بسيطة: المساحة، القزحية، والبؤبؤ -->
+      <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+        <defs>
+          <radialGradient id="g" cx="35%" cy="35%" r="70%">
+            <stop offset="0%" stop-color="#9ee9f8" stop-opacity="1" />
+            <stop offset="100%" stop-color="#06b6d4" stop-opacity="1" />
+          </radialGradient>
+        </defs>
+        <!-- محيط العين -->
+        <path d="M32 14C20 14 10 24 6 32c4 8 14 18 26 18s22-10 26-18c-4-8-14-18-26-18z" fill="#07202a" opacity="0.9"/>
+        <!-- قزحية -->
+        <circle cx="32" cy="32" r="10" fill="url(#g)" />
+        <!-- بؤبؤ -->
+        <circle cx="32" cy="32" r="5" fill="#04202a" />
+        <!-- لمعة صغيرة -->
+        <circle cx="27" cy="28" r="1.6" fill="#e8ffff" opacity="0.9" />
+      </svg>
+    </div><div class="count">
+  <div class="label">المتواجدين الآن على السيرفر</div>
+  <div class="num" id="count">11</div>
+</div>
+
+  </div>  <script>
+    // ====== شرح سريع ======
+    // هذا المثال يعرض ويدجت HTML/CSS/JS يظهر أيقونة "عين" وعدد المتصلين.
+    // حالياً يستخدم محاكاة (random) لتغيير العدد. لاستعماله فعلياً على سيرفرك:
+    // 1) أنشئ API في السيرفر يعيد JSON مثل: { "online": 42 }
+    // 2) عدّل fetchUrl إلى رابط الـ API الخاص بك (مثال: '/api/online').
+    // 3) يمكنك استخدام WebSocket أو SSE لتحديث فوري بدل الاستدعاء الدوري.
+    // ======================
+
+    const countEl = document.getElementById('count');
+    const eyeEl = document.getElementById('eye');
+
+    // رابط الـ API - عدّله ليتوافق مع سيرفرك
+    const fetchUrl = '/api/online'; // <- غيّره
+
+    // دالة لتحديث العدد في الواجهة
+    function setCount(n){
+      // عرض الرقم
+      countEl.textContent = String(n);
+      // نبضة صغيرة لتوضيح التغيير
+      eyeEl.classList.remove('pulse');
+      void eyeEl.offsetWidth; // إعادة تشغيل animation
+      eyeEl.classList.add('pulse');
+    }
+
+    // === مثال: جلب من API حقيقي ===
+    async function fetchCount(){
+      try{
+        // هذا الجزء يفترض أن الـ API يعيد JSON: { online: number }
+        const res = await fetch(fetchUrl, {cache: 'no-store'});
+        if(!res.ok) throw new Error('انسداد: ' + res.status);
+        const data = await res.json();
+        if(typeof data.online === 'number'){
+          setCount(data.online);
+        } else {
+          console.warn('الـ API لم يعِد حقل online عددي، سيتم تجاهله');
+        }
+      }catch(err){
+        // إن تعذّر الاتصال، يمكنك عرض قيمة افتراضية أو الاحتفاظ بالعدد السابق
+        console.error('حدث خطأ عند جلب عدد المتصلين:', err);
+      }
+    }
+
+    // === مثال بديل: محاكاة عشوائية (اجعلها تعمل محليًا للاختبار) ===
+    function simulate(){
+      const n = Math.floor(Math.random()*120); // عدد عشوائي بين 0 و119
+      setCount(n);
+    }
+
+    // تفعيل: قم بإزالة simulate() وفعّل fetchCount() إذا كان لديك API حقيقي.
+    // في الوضع التجريبي نقوم بتحديث كل 3.5 ثانية
+    simulate();
+    const interval = setInterval(simulate, 3500);
+
+    // لو أردت استخدام الـ API الحقيقية بدل المحاكاة، استعمل:
+    // fetchCount();
+    // setInterval(fetchCount, 5000); // استدعاء كل 5 ثواني (مثال)
+
+    // نظيف عند إغلاق الصفحة
+    window.addEventListener('beforeunload', ()=> clearInterval(interval));
+  </script></body>
+</html>
   </script>
 </body>
+</html>
+<!doctype html>
+
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ويدجت عدد المتصلين — Wael</title>
+  <style>
+    :root{--bg:#00ff80;--card:#000000cc;--accent:#00ff6699;--muted:#94a3b8}
+    *{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
+    body{margin:0;background:linear-gradient(180deg,#000000cc 0%, #00ff80 100%);color:#e6eef6;min-height:100vh;}.widget{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px 16px;border-radius:12px;display:flex;gap:10px;align-items:center;box-shadow:0 6px 20px rgba(2,6,23,0.4);min-width:150px;position:fixed;top:12px;right:12px;z-index:9999;transform:none;opacity:1;}
+
+.eye{
+  width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px;position:relative;overflow:visible
+}
+/* نبضة عند تغيّر العدد */
+.eye.pulse::after{
+  content:"";position:absolute;inset:0;border-radius:12px;box-shadow:0 0 0 0 rgba(6,182,212,0.14);animation:pulse 900ms ease-out;
+}
+@keyframes pulse{to{box-shadow:0 0 0 18px rgba(6,182,212,0)}}
+
+.count{display:flex;flex-direction:column}
+.count .label{font-size:12px;color:var(--muted);margin-bottom:4px;text-align:left}
+.count .num{font-size:20px;font-weight:700;color:var(--accent)}
+
+/* أيقونة بسيطة بالـ SVG */
+svg{display:block}
+
+/* تأثير دخول عند تحميل الصفحة */
+.widget{transform:translateY(6px);opacity:0;animation:enter 420ms cubic-bezier(.2,.9,.3,1) forwards}
+@keyframes enter{to{transform:none;opacity:1}}
+
+/* نسخة للجوال */
+@media (max-width:420px){.widget{min-width:180px;padding:12px;border-radius:10px}.eye{width:48px;height:48px}}
+
+  </style>
+</head>
+<body>  <div class="widget" id="onlineWidget">
+    <div class="eye" id="eye">
+      <!-- SVG عين بسيطة: المساحة، القزحية، والبؤبؤ -->
+      <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+        <defs>
+          <radialGradient id="g" cx="35%" cy="35%" r="70%">
+            <stop offset="0%" stop-color="#9ee9f8" stop-opacity="1" />
+            <stop offset="100%" stop-color="#06b6d4" stop-opacity="1" />
+          </radialGradient>
+        </defs>
+        <!-- محيط العين -->
+        <path d="M32 14C20 14 10 24 6 32c4 8 14 18 26 18s22-10 26-18c-4-8-14-18-26-18z" fill="#07202a" opacity="0.9"/>
+        <!-- قزحية -->
+        <circle cx="32" cy="32" r="10" fill="url(#g)" />
+        <!-- بؤبؤ -->
+        <circle cx="32" cy="32" r="5" fill="#04202a" />
+        <!-- لمعة صغيرة -->
+        <circle cx="27" cy="28" r="1.6" fill="#e8ffff" opacity="0.9" />
+      </svg>
+    </div><div class="count">
+  <div class="label">المتواجدين الآن على السيرفر</div>
+  <div class="num" id="count">1</div> 
+</div>
+
+  </div>  <script>
+    // ====== شرح سريع ======
+    // هذا المثال يعرض ويدجت HTML/CSS/JS يظهر أيقونة "عين" وعدد المتصلين.
+    // حالياً يستخدم محاكاة (random) لتغيير العدد. لاستعماله فعلياً على سيرفرك:
+    // 1) أنشئ API في السيرفر يعيد JSON مثل: { "online": 42 }
+    // 2) عدّل fetchUrl إلى رابط الـ API الخاص بك (مثال: '/api/online').
+    // 3) يمكنك استخدام WebSocket أو SSE لتحديث فوري بدل الاستدعاء الدوري.
+    // ======================
+
+    const countEl = document.getElementById('count');
+    const eyeEl = document.getElementById('eye');
+
+    // رابط الـ API - عدّله ليتوافق مع سيرفرك
+    const fetchUrl = '/api/online'; // <- غيّره
+
+    // دالة لتحديث العدد في الواجهة
+    function setCount(n){
+      // عرض الرقم
+      countEl.textContent = String(n);
+      // نبضة صغيرة لتوضيح التغيير
+      eyeEl.classList.remove('pulse');
+      void eyeEl.offsetWidth; // إعادة تشغيل animation
+      eyeEl.classList.add('pulse');
+    }
+
+    // === مثال: جلب من API حقيقي ===
+    async function fetchCount(){
+      try{
+        // هذا الجزء يفترض أن الـ API يعيد JSON: { online: number }
+        const res = await fetch(fetchUrl, {cache: 'no-store'});
+        if(!res.ok) throw new Error('انسداد: ' + res.status);
+        const data = await res.json();
+        if(typeof data.online === '1'){
+          setCount(data.online);
+        } else {
+          console.warn('الـ API لم يعِد حقل online عددي، سيتم تجاهله');
+        }
+      }catch(err){
+        // إن تعذّر الاتصال، يمكنك عرض قيمة افتراضية أو الاحتفاظ بالعدد السابق
+        console.error('حدث خطأ عند جلب عدد المتصلين:', err);
+      }
+    }
+
+    // === مثال بديل: محاكاة عشوائية (اجعلها تعمل محليًا للاختبار) ===
+    function simulate(){
+      const n = Math.floor(Math.random()*120); // عدد عشوائي بين 0 و119
+      setCount(n);
+    }
+
+    // تفعيل: قم بإزالة simulate() وفعّل fetchCount() إذا كان لديك API حقيقي.
+    // في الوضع التجريبي نقوم بتحديث كل 3.5 ثانية
+    simulate();
+    const interval = setInterval(simulate, 3500);
+
+    // لو أردت استخدام الـ API الحقيقية بدل المحاكاة، استعمل:
+    // fetchCount();
+    // setInterval(fetchCount, 5000); // استدعاء كل 5 ثواني (مثال)
+
+    // نظيف عند إغلاق الصفحة
+    window.addEventListener('beforeunload', ()=> clearInterval(interv
+  </script></body>
 </html>
