@@ -1,383 +1,233 @@
-<!doctype html>
-<html lang="ar"
+<!DOCTYPE html>
+<html lang="ar">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>روابط التواصل — Wael Designer</title>
-  <style>
-    :root{--bg:#00ff80;--card:#000000cc;--accent:#00ff6699;--muted:##00ff6699}
-    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Noto Naskh Arabic','Helvetica Neue',Arial}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#000000cc 0%,#00ff6699 100%);color:#00ff80}
-    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
-    .card{width:100%;max-width:920px;background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);border-radius:14px;padding:28px;box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.04)}
-    .header{display:flex;gap:16px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),##00ff80);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px}
-    h1{margin:0;font-size:20px}
-    p.sub{margin:4px 0 0;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}
-    .item{background:var(--card);padding:14px;border-radius:12px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,0.03)}
-    .iconwrap{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.02)}
-    .info{flex:1}
-    .title{font-weight:600}
-    .meta{font-size:13px;color:var(--muted);word-break:break-all}
-    .actions{display:flex;gap:8px;align-items:center}
-    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:inherit;cursor:pointer}
-    .btn.link{display:inline-flex;gap:8px;align-items:center;text-decoration:none}
-    .copied{font-size:12px;color:#10b981;margin-left:8px;opacity:0;transform:translateY(-4px);transition:all .25s}
-    .copied.show{opacity:1;transform:translateY(0)}
-    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
-    @media (max-width:420px){.header{flex-direction:column;align-items:flex-start}.logo{width:56px;height:56px}}
-  </style>
+<meta charset="UTF-8">
+<title>WAEL ACCOUNTS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body{
+  background:#000;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+}
+
+/* ===== Background Balls ===== */
+.ball{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(40px);
+  opacity:0.75;
+  animation:float 7s infinite alternate ease-in-out;
+  z-index:1;
+}
+
+.blue{background:#1e90ff; width:320px; height:320px; top:-80px; left:-80px;}
+.purple{background:#1e50ff; width:260px; height:260px; bottom:-100px; left:60px;}
+.cyan{background:#1e10ff;https://discord.gg/RCXjbnTQ; width:300px; height:300px; top:30%; right:-120px;}
+
+@keyframes float{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(220px,-160px);}
+  100%{transform:translate(-180px,220px);}
+}
+
+/* ===== Main Card ===== */
+.card{
+  position:relative;
+  width:420px; /* كبرنا القائمة */
+  padding:30px;
+  border-radius:30px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.05)
+  );
+  backdrop-filter:blur(25px);
+  box-shadow:
+    0 0 60px rgba(0,0,0,0.7),
+    inset 0 0 20px rgba(255,255,255,0.08);
+  z-index:10;
+}
+
+/* ===== Title ===== */
+.title{
+  text-align:center;
+  font-size:22px;
+  letter-spacing:3px;
+  margin-bottom:25px;
+  opacity:0.95;
+}
+
+/* ===== Buttons ===== */
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 22px;
+  border-radius:22px;
+  margin-bottom:16px;
+  background:rgba(255,255,255,0.15);
+  transition:0.35s;
+  cursor:pointer;
+}
+
+.btn:hover{
+  background:rgba(255,255,255,0.25);
+  transform:scale(1.04);
+}
+
+.btn:active{
+  transform:scale(0.95);
+}
+
+/* ===== Left Side ===== */
+.left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.icon{
+  font-size:26px;
+  color:#fff;
+}
+
+.name{
+  font-size:18px;
+}
+
+/* ===== Right Side ===== */
+.action{
+  font-size:14px;
+  letter-spacing:1px;
+  opacity:0.85;
+}
+
+/* ===== Links ===== */
+a{
+  color:#fff;
+  text-decoration:none;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card" role="region" aria-label="Social links card">
-      <div class="header">
-        <div>
-          <head>كل ما يخص بتصميم الصور Wael Designer</h1>
-          <p class="sub">اضغط على أيقونة النسخ لنسخ الرابط/اليوزر إلى الحافظة</p>
-        </div>
+
+<!-- Background -->
+<div class="ball blue"></div>
+<div class="ball purple"></div>
+<div class="ball cyan"></div>
+
+<!-- Card -->
+<div class="card">
+  <div class="title">WAEL ACCOUNTS</div>
+
+  <a href="https://www.youtube.com/@ERROR_x7x" target="_blank">
+    <div class="btn">
+      <div class="left">
+        <i class="fa-brands fa-youtube icon"></i>
+        <span class="name">YouTube</span>
       </div>
-
-      <div class="grid" id="links">
-
-        <!-- Discord -->
-        <div class="item">
-          <div class="iconwrap" aria-hidden>
-            <!-- Discord SVG -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.369A19.791 19.791 0 0016.97 3.2a13.76 13.76 0 00-.687 1.432 18.992 18.992 0 00-5.952 0A13.792 13.792 0 009.6 3.2 19.79 19.79 0 004.283 4.37C2.06 9.08 1.74 13.66 2.39 18.18a20.17 20.17 0 006.06 3.12c.48-.66.91-1.32 1.3-2.01a13.18 13.18 0 01-3.9-1.2c.33-.2.66-.41.98-.64 6.56 3.1 13.36 0 13.36 0 .34.23.68.44 1.02.64a12.97 12.97 0 01-3.9 1.2c.39.69.8 1.35 1.3 2.01a20.169 20.169 0 006.06-3.12c.64-4.52.32-9.1-2.89-13.81z" fill="#5865F2"/></svg>
-          </div>
-          <div class="info">
-            <div class="title">Discord</div>
-          <div class="meta" id="discord-text">9pr.</div>
-          </div>
-          <div class="actions">
-            <button class="btn" onclick="copyText('discord-text', this)" aria-label="نسخ يوزر ديسكورد">نسخ</button>
-          </div>
-        </div>
-
-        <!-- YouTube -->
-        <div class="item">
-          <div class="iconwrap">
-            <!-- YouTube SVG -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.01 3.01 0 00-2.12-2.121C19.84 3.2 12 3.2 12 3.2s-7.84 0-9.378.865A3.01 3.01 0 00.504 6.186C0 8.01 0 12 0 12s0 3.99.504 5.814a3.01 3.01 0 002.118 2.121C4.16 20.8 12 20.8 12 20.8s7.84 0 9.378-.865a3.01 3.01 0 002.12-2.121C24 15.99 24 12 24 12s0-3.99-.502-5.814z" fill="#FF0000"/></svg>
-          </div>
-          <div class="info">
-            <div class="title">YouTube</div>
-            <div class="meta" id="youtube-text">https://www.youtube.com/@ERROR_x7x</div>
-          </div>
-          <div class="actions">
-            <a class="btn link" href="https://www.youtube.com/@ERROR_x7x" target="_blank" rel="noopener">فتح</a>
-            <button class="btn" onclick="copyText('youtube-text', this)">نسخ</button>
-          </div>
-        </div>
-
-        <!-- TikTok -->
-        <div class="item">
-          <div class="iconwrap">
-            <!-- TikTok SVG simplified -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v10.5A4.5 4.5 0 1013.5 18V8h3V5h-3V3H9z" fill="#010101"/></svg>
-          </div>
-          <div class="info">
-            <div class="title">TikTok</div>
-            <div class="meta" id="tiktok-text">wael_designer</div>
-          </div>
-          <div class="actions">
-            <button class="btn" onclick="copyText('tiktok-text', this)">نسخ</button>
-           <a class="btn link" href="https://vm.tiktok.com/ZSHwAG78yrq5p-Ubu27/" target="_blank" rel="noopener">فتح</a>
-          </div>
-        </div>
-        <!-- Instagram -->
-        <div class="item">
-          <div class="iconwrap">
-            <!-- Instagram SVG -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-opacity="0.85" stroke-width="1.2" fill="none"/><circle cx="12" cy="12" r="3.2" stroke="#fff" stroke-opacity="0.85" stroke-width="1.1" fill="none"/><circle cx="17.5" cy="6.5" r="0.7" fill="#fff"/></svg>
-          </div>
-          <div class="info">
-            <div class="title">Instagram</div>
-            <div class="meta" id="instagram-text">wael designr</div>
-          </div>
-          <div class="actions">
-            <button class="btn" onclick="copyText('instagram-text', this)">نسخ</button>
-                        <a class="btn link" href="https://www.instagram.com/wael_designer_27?igsh=MXUyYjRibW1wcWcyOQ==" target="_blank" rel="noopener">فتح</a>
-          </div>
-        </div>
-      </div>
-
-      <footeتمrرل</footer>
+      <span class="action">OPEN</span>
     </div>
+  </a>
+
+  <a href="https://www.instagram.com/wael_designer_27?igsh=MXUyYjRibW1wcWcyOQ==" target="_blank">
+    <div class="btn">
+      <div class="left">
+        <i class="fa-brands fa-instagram icon"></i>
+        <span class="name">Instagram</span>
+      </div>
+      <span class="action">OPEN</span>
+    </div>
+  </a>
+
+  <a href="https://vm.tiktok.com/ZSHwAG78yrq5p-Ubu27/" target="_blank">
+    <div class="btn">
+      <div class="left">
+        <i class="fa-brands fa-tiktok icon"></i>
+        <span class="name">TikTok</span>
+      </div>
+      <span class="action">OPEN</span>
+    </div>
+  </a>
+
+  <div class="btn" onclick="copyDiscord()">
+    <div class="left">
+      <i class="fa-brands fa-discord icon"></i>
+      <span class="name">Discord</span>
+    </div>
+    <span class="action">COPY</span>
   </div>
-
-  <script>
-    function copyText(elementId, btn){
-      const el = document.getElementById(elementId);
-      const text = el.textContent.trim();
-      if(!navigator.clipboard){
-        // Fallback
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        try{ document.execCommand('copy'); showCopied(btn); }catch(e){ alert('نسخ غير متاح'); }
-        ta.remove();
-        return;
-      }
-      navigator.clipboard.writeText(text).then(()=>{
-        showCopied(btn);
-      }).catch(()=>{ alert('فشل النسخ — تأكد من السماح للصق في المتصفح'); });
-    }
-    function showCopied(btn){
-      const original = btn.textContent;
-      btn.textContent = 'تم النسخ'
-      btn.disabled = true;
-      setTimeout(()=>{ btn.textContent = original; btn.disabled = false; },1500);
-    }
-    <!doctype html>
-
+</div>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ويدجت عدد المتصلين — Wael</title>
-  <style>
-    :root{--bg:#0b1220;--card:#0f1724;--accent:#06b6d4;--muted:#94a3b8}
-    *{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
-    body{margin:0;background:linear-gradient(180deg,#05111a 0%, #071726 100%);color:#e6eef6;min-height:100vh;}.widget{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px 16px;border-radius:12px;display:flex;gap:10px;align-items:center;box-shadow:0 6px 20px rgba(2,6,23,0.4);min-width:150px;position:fixed;top:12px;right:12px;z-index:9999;transform:none;opacity:1;}
+<meta charset="UTF-8">
+<title>Views Counter</title>
 
-.eye{
-  width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px;position:relative;overflow:visible
-}
-/* نبضة عند تغيّر العدد */
-.eye.pulse::after{
-  content:"";position:absolute;inset:0;border-radius:12px;box-shadow:0 0 0 0 rgba(6,182,212,0.14);animation:pulse 900ms ease-out;
-}
-@keyframes pulse{to{box-shadow:0 0 0 18px rgba(6,182,212,0)}}
-
-.count{display:flex;flex-direction:column}
-.count .label{font-size:12px;color:var(--muted);margin-bottom:4px;text-align:left}
-.count .num{font-size:20px;font-weight:700;color:var(--accent)}
-
-/* أيقونة بسيطة بالـ SVG */
-svg{display:block}
-
-/* تأثير دخول عند تحميل الصفحة */
-.widget{transform:translateY(6px);opacity:0;animation:enter 420ms cubic-bezier(.2,.9,.3,1) forwards}
-@keyframes enter{to{transform:none;opacity:1}}
-
-/* نسخة للجوال */
-@media (max-width:420px){.widget{min-width:180px;padding:12px;border-radius:10px}.eye{width:48px;height:48px}}
-
-  </style>
+<!-- أيقونة العين -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>  <div class="widget" id="onlineWidget">
-    <div class="eye" id="eye">
-      <!-- SVG عين بسيطة: المساحة، القزحية، والبؤبؤ -->
-      <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
-        <defs>
-          <radialGradient id="g" cx="35%" cy="35%" r="70%">
-            <stop offset="0%" stop-color="#9ee9f8" stop-opacity="1" />
-            <stop offset="100%" stop-color="#06b6d4" stop-opacity="1" />
-          </radialGradient>
-        </defs>
-        <!-- محيط العين -->
-        <path d="M32 14C20 14 10 24 6 32c4 8 14 18 26 18s22-10 26-18c-4-8-14-18-26-18z" fill="#07202a" opacity="0.9"/>
-        <!-- قزحية -->
-        <circle cx="32" cy="32" r="10" fill="url(#g)" />
-        <!-- بؤبؤ -->
-        <circle cx="32" cy="32" r="5" fill="#04202a" />
-        <!-- لمعة صغيرة -->
-        <circle cx="27" cy="28" r="1.6" fill="#e8ffff" opacity="0.9" />
-      </svg>
-    </div><div class="count">
-  <div class="label">المتواجدين الآن على السيرفر</div>
-  <div class="num" id="count">11</div>
+
+<body style="
+margin:0;
+background:black;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+font-family:Arial;
+overflow:hidden;
+">
+
+<!-- عداد المشاهدات -->
+<div
+style="
+position:absolute;
+top:15px;
+right:15px;
+display:flex;
+align-items:center;
+gap:8px;
+padding:10px 14px;
+border-radius:14px;
+background:rgba(255,255,255,0.18);
+backdrop-filter:blur(15px);
+box-shadow:0 0 20px rgba(0,0,0,0.6);
+font-size:14px;
+">
+  <i class="fa-solid fa-eye"></i>
+  <span id="count">0</span>
 </div>
 
-  </div>  <script>
-    // ====== شرح سريع ======
-    // هذا المثال يعرض ويدجت HTML/CSS/JS يظهر أيقونة "عين" وعدد المتصلين.
-    // حالياً يستخدم محاكاة (random) لتغيير العدد. لاستعماله فعلياً على سيرفرك:
-    // 1) أنشئ API في السيرفر يعيد JSON مثل: { "online": 42 }
-    // 2) عدّل fetchUrl إلى رابط الـ API الخاص بك (مثال: '/api/online').
-    // 3) يمكنك استخدام WebSocket أو SSE لتحديث فوري بدل الاستدعاء الدوري.
-    // ======================
+</div>
 
-    const countEl = document.getElementById('count');
-    const eyeEl = document.getElementById('eye');
+<script>
+let
 
-    // رابط الـ API - عدّله ليتوافق مع سيرفرك
-    const fetchUrl = '/api/online'; // <- غيّره
+<script>
+function copyDiscord(){
+  navigator.clipboard.writeText("9pr.");
+  alert("✔ تم نسخ يوزر الدسكورد");
+}
 
-    // دالة لتحديث العدد في الواجهة
-    function setCount(n){
-      // عرض الرقم
-      countEl.textContent = String(n);
-      // نبضة صغيرة لتوضيح التغيير
-      eyeEl.classList.remove('pulse');
-      void eyeEl.offsetWidth; // إعادة تشغيل animation
-      eyeEl.classList.add('pulse');
-    }
+</script>
 
-    // === مثال: جلب من API حقيقي ===
-    async function fetchCount(){
-      try{
-        // هذا الجزء يفترض أن الـ API يعيد JSON: { online: number }
-        const res = await fetch(fetchUrl, {cache: 'no-store'});
-        if(!res.ok) throw new Error('انسداد: ' + res.status);
-        const data = await res.json();
-        if(typeof data.online === 'number'){
-          setCount(data.online);
-        } else {
-          console.warn('الـ API لم يعِد حقل online عددي، سيتم تجاهله');
-        }
-      }catch(err){
-        // إن تعذّر الاتصال، يمكنك عرض قيمة افتراضية أو الاحتفاظ بالعدد السابق
-        console.error('حدث خطأ عند جلب عدد المتصلين:', err);
-      }
-    }
-
-    // === مثال بديل: محاكاة عشوائية (اجعلها تعمل محليًا للاختبار) ===
-    function simulate(){
-      const n = Math.floor(Math.random()*120); // عدد عشوائي بين 0 و119
-      setCount(n);
-    }
-
-    // تفعيل: قم بإزالة simulate() وفعّل fetchCount() إذا كان لديك API حقيقي.
-    // في الوضع التجريبي نقوم بتحديث كل 3.5 ثانية
-    simulate();
-    const interval = setInterval(simulate, 3500);
-
-    // لو أردت استخدام الـ API الحقيقية بدل المحاكاة، استعمل:
-    // fetchCount();
-    // setInterval(fetchCount, 5000); // استدعاء كل 5 ثواني (مثال)
-
-    // نظيف عند إغلاق الصفحة
-    window.addEventListener('beforeunload', ()=> clearInterval(interval));
-  </script></body>
-</html>
-  </script>
 </body>
-</html>
-<!doctype html>
-
-<html lang="ar">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ويدجت عدد المتصلين — Wael</title>
-  <style>
-    :root{--bg:#00ff80;--card:#000000cc;--accent:#00ff6699;--muted:#94a3b8}
-    *{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
-    body{margin:0;background:linear-gradient(180deg,#000000cc 0%, #00ff80 100%);color:#e6eef6;min-height:100vh;}.widget{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px 16px;border-radius:12px;display:flex;gap:10px;align-items:center;box-shadow:0 6px 20px rgba(2,6,23,0.4);min-width:150px;position:fixed;top:12px;right:12px;z-index:9999;transform:none;opacity:1;}
-
-.eye{
-  width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px;position:relative;overflow:visible
-}
-/* نبضة عند تغيّر العدد */
-.eye.pulse::after{
-  content:"";position:absolute;inset:0;border-radius:12px;box-shadow:0 0 0 0 rgba(6,182,212,0.14);animation:pulse 900ms ease-out;
-}
-@keyframes pulse{to{box-shadow:0 0 0 18px rgba(6,182,212,0)}}
-
-.count{display:flex;flex-direction:column}
-.count .label{font-size:12px;color:var(--muted);margin-bottom:4px;text-align:left}
-.count .num{font-size:20px;font-weight:700;color:var(--accent)}
-
-/* أيقونة بسيطة بالـ SVG */
-svg{display:block}
-
-/* تأثير دخول عند تحميل الصفحة */
-.widget{transform:translateY(6px);opacity:0;animation:enter 420ms cubic-bezier(.2,.9,.3,1) forwards}
-@keyframes enter{to{transform:none;opacity:1}}
-
-/* نسخة للجوال */
-@media (max-width:420px){.widget{min-width:180px;padding:12px;border-radius:10px}.eye{width:48px;height:48px}}
-
-  </style>
-</head>
-<body>  <div class="widget" id="onlineWidget">
-    <div class="eye" id="eye">
-      <!-- SVG عين بسيطة: المساحة، القزحية، والبؤبؤ -->
-      <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
-        <defs>
-          <radialGradient id="g" cx="35%" cy="35%" r="70%">
-            <stop offset="0%" stop-color="#9ee9f8" stop-opacity="1" />
-            <stop offset="100%" stop-color="#06b6d4" stop-opacity="1" />
-          </radialGradient>
-        </defs>
-        <!-- محيط العين -->
-        <path d="M32 14C20 14 10 24 6 32c4 8 14 18 26 18s22-10 26-18c-4-8-14-18-26-18z" fill="#07202a" opacity="0.9"/>
-        <!-- قزحية -->
-        <circle cx="32" cy="32" r="10" fill="url(#g)" />
-        <!-- بؤبؤ -->
-        <circle cx="32" cy="32" r="5" fill="#04202a" />
-        <!-- لمعة صغيرة -->
-        <circle cx="27" cy="28" r="1.6" fill="#e8ffff" opacity="0.9" />
-      </svg>
-    </div><div class="count">
-  <div class="label">المتواجدين الآن على السيرفر</div>
-  <div class="num" id="count">1</div> 
-</div>
-
-  </div>  <script>
-    // ====== شرح سريع ======
-    // هذا المثال يعرض ويدجت HTML/CSS/JS يظهر أيقونة "عين" وعدد المتصلين.
-    // حالياً يستخدم محاكاة (random) لتغيير العدد. لاستعماله فعلياً على سيرفرك:
-    // 1) أنشئ API في السيرفر يعيد JSON مثل: { "online": 42 }
-    // 2) عدّل fetchUrl إلى رابط الـ API الخاص بك (مثال: '/api/online').
-    // 3) يمكنك استخدام WebSocket أو SSE لتحديث فوري بدل الاستدعاء الدوري.
-    // ======================
-
-    const countEl = document.getElementById('count');
-    const eyeEl = document.getElementById('eye');
-
-    // رابط الـ API - عدّله ليتوافق مع سيرفرك
-    const fetchUrl = '/api/online'; // <- غيّره
-
-    // دالة لتحديث العدد في الواجهة
-    function setCount(n){
-      // عرض الرقم
-      countEl.textContent = String(n);
-      // نبضة صغيرة لتوضيح التغيير
-      eyeEl.classList.remove('pulse');
-      void eyeEl.offsetWidth; // إعادة تشغيل animation
-      eyeEl.classList.add('pulse');
-    }
-
-    // === مثال: جلب من API حقيقي ===
-    async function fetchCount(){
-      try{
-        // هذا الجزء يفترض أن الـ API يعيد JSON: { online: number }
-        const res = await fetch(fetchUrl, {cache: 'no-store'});
-        if(!res.ok) throw new Error('انسداد: ' + res.status);
-        const data = await res.json();
-        if(typeof data.online === '1'){
-          setCount(data.online);
-        } else {
-          console.warn('الـ API لم يعِد حقل online عددي، سيتم تجاهله');
-        }
-      }catch(err){
-        // إن تعذّر الاتصال، يمكنك عرض قيمة افتراضية أو الاحتفاظ بالعدد السابق
-        console.error('حدث خطأ عند جلب عدد المتصلين:', err);
-      }
-    }
-
-    // === مثال بديل: محاكاة عشوائية (اجعلها تعمل محليًا للاختبار) ===
-    function simulate(){
-      const n = Math.floor(Math.random()*120); // عدد عشوائي بين 0 و119
-      setCount(n);
-    }
-
-    // تفعيل: قم بإزالة simulate() وفعّل fetchCount() إذا كان لديك API حقيقي.
-    // في الوضع التجريبي نقوم بتحديث كل 3.5 ثانية
-    simulate();
-    const interval = setInterval(simulate, 3500);
-
-    // لو أردت استخدام الـ API الحقيقية بدل المحاكاة، استعمل:
-    // fetchCount();
-    // setInterval(fetchCount, 5000); // استدعاء كل 5 ثواني (مثال)
-
-    // نظيف عند إغلاق الصفحة
-    window.addEventListener('beforeunload', ()=> clearInterval(interv
-  </script></body>
 </html>
